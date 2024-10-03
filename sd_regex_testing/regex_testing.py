@@ -89,7 +89,7 @@ class SDRegexTestingFrame:
         :rtype: pl.DataFrame
         """
     
-        regex = r"(?i)(?:^|\b|(?w:\b))" + regex + r"(?:\b|(?w:\b)|$)"
+        regex = r"(?i)\b" + regex + r"\b"
         return self._df.with_columns(
             matched=pl.any_horizontal(
                 pl.col(field).str.contains(regex) for field in TEXT_FIELDS
