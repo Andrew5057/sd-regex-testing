@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "sd-regex-testing"
 version = "0.1.0"
-description = ""
+description = "A set of tools for testing SmokeDetector regexes"
 authors = ["anerdw <yimandrew27@gmail.com>"]
 readme = "README.md"
 
