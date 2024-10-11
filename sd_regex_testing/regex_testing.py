@@ -42,74 +42,84 @@ class SDRegexTestingFrame:
     def __init__(self, df: pl.DataFrame) -> None:
         self._df = df
     
-    def test_title(self, regex: str) -> pl.DataFrame:
+    def test_title(self, regex: str, case_sensitive: bool = False) -> pl.DataFrame:
         """Test a regex against each post's title. Returns a new DataFrame with
         a "matched" column indicating whether or not a match was found.
-        Case-insensitive.
-    
+        
         :param regex: The regex to test.
+        :param case_sensitive: Whether the regex should be case-sensitive.
+        Default False.
         :type regex: str
         :return: A DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
-    
-        regex = "(?i)" + regex
+        
+        if not case_sensitive:
+            regex = "(?i)" + regex
         return self._df.with_columns(
             matched=pl.col('title').str.contains(regex)
         )
     
-    def test_username(self, regex: str) -> pl.DataFrame:
+    def test_username(self, regex: str, case_sensitive: bool = False) -> pl.DataFrame:
         """Test a regex against each post's username. Returns a new DataFrame
         with a "matched" column indicating whether or not a match was found.
-        Case-insensitive.
         
         :param regex: The regex to test.
+        :param case_sensitive: Whether the regex should be case-sensitive.
+        Default False.
         :type regex: str
         :return: A DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
         
-        regex = "(?i)" + regex
+        if not case_sensitive:
+            regex = "(?i)" + regex
         return self._df.with_columns(
             matched=pl.col('username').str.contains(regex)
         )
     
-    def test_keyword(self, regex: str) -> pl.DataFrame:
+    def test_keyword(self, regex: str, case_sensitive: bool = False) -> pl.DataFrame:
         """Test a regex as if it were part of the keyword blacklist. Returns a
         new DataFrame with a "matched" column indicating whether or not a match
         was found. Checks for matches in every field in the TEXT_FIELDS
-        constant. Case-insensitive and bookended by ``'\\b'`` on both sides.
+        constant. Bookended by ``'\\b'`` on both sides.
         
         :param regex: The regex to test.
+        :param case_sensitive: Whether the regex should be case-sensitive.
+        Default False.
         :type regex: str
         :return: A DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
     
-        regex = r"(?i)\b" + regex + r"\b"
+        regex = r"\b" + regex + r"\b"
+        if not case_sensitive:
+            regex = r"(?i)" + regex
         return self._df.with_columns(
             matched=pl.any_horizontal(
                 pl.col(field).str.contains(regex) for field in TEXT_FIELDS
             )
         )
     
-    def test_website(self, regex: str) -> pl.DataFrame:
+    def test_website(self, regex: str, case_sensitive: bool = False) -> pl.DataFrame:
         """Test a regex as if it were part of the website blacklist. Returns a
         new DataFrame with a "matched" column indicating whether or not a match
         was found. Checks for matches in every field in the TEXT_FIELDS
         constant. Case-insensitive.
         
         :param regex: The regex to test.
+        :param case_sensitive: Whether the regex should be case-sensitive.
+        Default False.
         :type regex: str
         :return: A DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
-    
-        regex = r"(?i)" + regex
+        if not case_sensitive:
+            regex = r"(?i)" + regex
         return self._df.with_columns(
             matched=pl.any_horizontal(
                 pl.col(field).str.contains(regex) for field in TEXT_FIELDS
