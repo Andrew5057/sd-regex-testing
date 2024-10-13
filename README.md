@@ -8,6 +8,14 @@ against [metasmoke](https://m.erwaysoftware.com) data and analyzing their result
 It makes heavy use of the [Polars](https://pola.rs) library, which it uses to
 store post data, test regexes, filter results, and more.
 
+## Installation
+
+SDRT is available on PyPI under the name `sd-regex-testing`.
+
+```bash
+pip install sd-regex-testing
+```
+
 ## Usage
 
 ### Python module
