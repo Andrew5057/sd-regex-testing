@@ -9,6 +9,9 @@ readme = "README.md"
 python = "^3.11"
 polars = "^1.6.0"
 
+[tool.poetry.scripts]
+sdrt = "sd_regex_testing.interactive:test_from_cli"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

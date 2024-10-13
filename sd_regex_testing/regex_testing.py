@@ -28,7 +28,7 @@ def read_json(source: str | Path | IOBase | bytes) -> pl.DataFrame:
     posts = pl.read_json(source)
     # Disputed and unreviewed should be excluded
     posts = posts.filter(pl.col('is_tp').xor('is_fp'))
-    return posts.select(FIELDS)
+    return posts.select(FIELDS).with_columns(matched=False)
 
 class SDRegexTestingFrame:
     """Defines methods useful for regex testing. All of these methods are
