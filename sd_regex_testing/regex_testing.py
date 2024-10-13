@@ -19,9 +19,9 @@ def read_json(source: str | Path | IOBase | bytes) -> pl.DataFrame:
     removes any posts with either no feedback or conflicting feedback to ensure
     integrity of regex tests.
     
-    :param source: The JSON file to read.
+    :param source: the JSON file to read.
     :type source: str | Path | IOBase | bytes
-    :return: A DataFrame containing regex-relevant information about each post.
+    :return: a DataFrame containing regex-relevant information about each post.
     :rtype: pl.DataFrame
     """
     
@@ -35,7 +35,7 @@ class SDRegexTestingFrame:
     registered in the ``df.sdrt`` namespace; do not try to access them by
     directly instantiating an object of this type.
     
-    :param df: The underlying DataFrame for this class.
+    :param df: the underlying DataFrame for this class.
     :type df: pl.DataFrame
     """
     
@@ -46,11 +46,11 @@ class SDRegexTestingFrame:
         """Test a regex against each post's title. Returns a new DataFrame with
         a "matched" column indicating whether or not a match was found.
         
-        :param regex: The regex to test.
-        :param case_sensitive: Whether the regex should be case-sensitive.
+        :param regex: the regex to test.
+        :param case_sensitive: whether the regex should be case-sensitive.
         Default False.
         :type regex: str
-        :return: A DataFrame with a "matched" column, where True indicates that
+        :return: a DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
@@ -65,11 +65,11 @@ class SDRegexTestingFrame:
         """Test a regex against each post's username. Returns a new DataFrame
         with a "matched" column indicating whether or not a match was found.
         
-        :param regex: The regex to test.
-        :param case_sensitive: Whether the regex should be case-sensitive.
+        :param regex: the regex to test.
+        :param case_sensitive: whether the regex should be case-sensitive.
         Default False.
         :type regex: str
-        :return: A DataFrame with a "matched" column, where True indicates that
+        :return: a DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
@@ -86,11 +86,11 @@ class SDRegexTestingFrame:
         was found. Checks for matches in every field in the TEXT_FIELDS
         constant. Bookended by ``'\\b'`` on both sides.
         
-        :param regex: The regex to test.
-        :param case_sensitive: Whether the regex should be case-sensitive.
+        :param regex: the regex to test.
+        :param case_sensitive: whether the regex should be case-sensitive.
         Default False.
         :type regex: str
-        :return: A DataFrame with a "matched" column, where True indicates that
+        :return: a DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
@@ -110,11 +110,11 @@ class SDRegexTestingFrame:
         was found. Checks for matches in every field in the TEXT_FIELDS
         constant. Case-insensitive.
         
-        :param regex: The regex to test.
-        :param case_sensitive: Whether the regex should be case-sensitive.
+        :param regex: the regex to test.
+        :param case_sensitive: whether the regex should be case-sensitive.
         Default False.
         :type regex: str
-        :return: A DataFrame with a "matched" column, where True indicates that
+        :return: a DataFrame with a "matched" column, where True indicates that
         a match was found.
         :rtype: pl.DataFrame
         """
@@ -132,7 +132,7 @@ class SDRegexTestingFrame:
         post is true positive if it was TP on SmokeDetector and matched by the
         regex.
     
-        :return: A DataFrame containing only the true-positive posts.
+        :return: a DataFrame containing only the true-positive posts.
         :rtype: pl.DataFrame
         """
         return self._df.filter(pl.col('is_tp') & pl.col('matched'))
@@ -143,7 +143,7 @@ class SDRegexTestingFrame:
         post is false positive if it was FP on SmokeDetector but matched by the
         regex.
     
-        :return: A DataFrame containing only the false-positive posts.
+        :return: a DataFrame containing only the false-positive posts.
         :rtype: pl.DataFrame
         """
         return self._df.filter(~pl.col('is_tp') & pl.col('matched'))
@@ -154,7 +154,7 @@ class SDRegexTestingFrame:
         post is true negative if it was FP on SmokeDetector and not matched by
         the regex.
     
-        :return: A DataFrame containing only the true-negative posts.
+        :return: a DataFrame containing only the true-negative posts.
         :rtype: pl.DataFrame
         """
         return self._df.filter(~pl.col('is_tp') & ~pl.col('matched'))
@@ -165,7 +165,7 @@ class SDRegexTestingFrame:
         post is false negative if it was TP on SmokeDetector but not matched by
         the regex.
     
-        :return: A DataFrame containing only the false-negative posts.
+        :return: a DataFrame containing only the false-negative posts.
         :rtype: pl.DataFrame
         """
         return self._df.filter(pl.col('is_tp') & ~pl.col('matched'))
