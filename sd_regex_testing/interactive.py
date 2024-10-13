@@ -34,15 +34,15 @@ class InteractiveSession:
         the list of possible commands, then indefinitely allows the user to
         enter them.
         
-        Commands can either take the form "test [type] [regex]" (test a regex)
-        or "[tp|fp|tn|fn|summarize]" (get information about the last test).
+        Commands can either take the form "test type regex" (test a regex)
+        or "tp|fp|tn|fn|summarize" (get information about the last test).
         """
         
         print(f"""
 Started an interactive SDRT session with {self.file} ({len(self.posts)} posts)
 Commands:
-- "test [title|username|keyword|website] [regex]" to store a regex test
-- "[tp|fp|tn|fn]" to get the number of each type of result
+- "test (title|username|keyword|website) regex" to store a regex test
+- "tp|fp|tn|fn" to get the number of each type of result
 - "summarize" to see a quick summary of the results
 - "exit" or CTRL+C to exit""")
         try:
@@ -80,8 +80,8 @@ Commands:
         """Convert a command from an interactive session into its corresponding
         DataFrame output. Accepted inputs are:
         - "tp", "fp", "tn", "fn" (prints the filtered posts)
-        - "test [title|username|keyword|website] [regex]" (stores the regex
-        test in the posts field)
+        - "test (title|username|keyword|website) regex" (stores the regex
+          test in the posts field)
         
         :param command: the inputted line of text
         :type command: str
@@ -95,7 +95,7 @@ Commands:
                       + f"{self.last_test_type} yielded "
                       + f"{len(self.posts.sdrt.tp)} TP, "
                       + f"{len(self.posts.sdrt.fp)} FP, "
-                      + f"{len(self.posts.sdrt.tn)} TN, "
+                      + f"{len(self.posts.sdrt.tn)} TN, and "
                       + f"{len(self.posts.sdrt.fn)} FN")
             case "test":
                 if len(command_raw) < 3:
