@@ -55,28 +55,28 @@ fns = keyword.sdrt.fn
 
 ### Commmand line tool
 
-This package also creates an ``sdrt`` command line tool. It takes the path to
+This package also creates an `sdrt` command line tool. It takes the path to
 an MS JSON file as an argument:
 
 ```bash
 sdrt path/to/file
 ```
 
-This will open an interactive regex testing session. The ``test`` command will
+This will open an interactive regex testing session. The `test` command will
 test a given regex against the file and store the result.
 
 ```bash
 >>> test (title|username|keyword|website) regex
 ```
 
-The ``tp``, ``fp``, ``tn``, and ``fn`` commands will report the number of posts
+The `tp`, `fp`, `tn`, and `fn` commands will report the number of posts
 with the given result.
 
 ```bash
 >>> tp|fp|tn|fn
 ```
 
-The ``summarize`` command will pretty-print the counts for all four result
+The `summarize` command will pretty-print the counts for all four result
 types, as well as reporting the last test.
 
 ```
